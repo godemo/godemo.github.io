@@ -1,0 +1,21 @@
+#content{
+    font-family: Palatino, georgia, "times new roman", serif;
+}
+ul li {
+    list-style: none;
+    line-height: 200%;
+    font-size: 14px;
+}
+#content ul{
+    margin-top:14px;
+}
+
+#content h4{
+    font-size:17px;
+}
+
+.figure{
+    width:auto;
+    float:left; 
+    padding:0px;
+}

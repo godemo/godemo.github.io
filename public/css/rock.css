@@ -1,0 +1,28 @@
+body{
+
+}
+#content{
+    background-image: url(../img/fc.png);
+    color:white;
+    background-color: black;
+    background-repeat:no-repeat;    
+    background-color:black;
+    background-position:bottom left;
+
+}
+
+#content a:visited {
+    text-decoration: none;
+    color: #98855b;
+}
+#content a {
+    text-decoration: none;
+    color: yellow;
+    cursor: auto;
+    text-decoration: underline;
+}
+
+#content a {
+    text-decoration: none;
+    color: yellow;
+}

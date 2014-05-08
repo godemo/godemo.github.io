@@ -1,0 +1,9 @@
+body{
+
+}
+#content{
+    background-image: url(../img/gongdao.png);
+    background-repeat:no-repeat;    
+    background-position:bottom left;
+    min-height:20em;
+}
