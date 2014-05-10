@@ -3,8 +3,8 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
 <head>
-<title>「扯」<a href="./misc/chmod-number.html">chmod777，恶魔文化及金属礼</a></title>
-<!-- 2014-05-08 Thu 14:40 -->
+<title>「扯」chmod、兽名印记和金属礼</title>
+<!-- 2014-05-11 Sun 03:09 -->
 <meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta  name="generator" content="Org-mode" />
 <style type="text/css">
@@ -151,18 +151,86 @@ for the JavaScript code in this tag.
 </div>
 </div>
 <div id="content">
-<h1 class="title">「扯」<a href="./misc/chmod-number.html">chmod777，恶魔文化及金属礼</a></h1>
+<h1 class="title">「扯」chmod、兽名印记和金属礼</h1>
 <p>
-<a href="http:www.douban.com/group/topic/23912607/">http:www.douban.com/group/topic/23912607/</a>
+在Linux下最常用的工具非shell莫属。而shell下进行各种脚本编写又经常会用到
+文件的授权。比如多数人都会偷懒而直接执行的命令 "chmod 777 lazy.sh"就代
+表着开放所有权限。
 </p>
 
 <p>
-<a href="http:www.douban.com/photos/photo/1408552591/">http:www.douban.com/photos/photo/1408552591/</a>
+一个文件，在Linux下所涉及到的权限由三个部分组成：所有者权限，用户组权限
+和其他用户权限。着三种类别分别缩写为　u(user)、g(group)、o(other)，为了
+便于操作，系统还支持一个全局的操作符a(all)。而对每一个权限部分而言，涉
+及到的权限项又分为rwx和-，分别标识Readable、Writeable、eXcutable和“未指
+定”。
+</p>
+
+<p>
+应用以上规则，对一个文件的授权操作可以是：
+</p>
+<div class="org-src-container">
+
+<pre class="src src-bash">chmod a+x all_user_can_run_me.sh
+或者：
+chmod u+rw owner_can_rw_me.sh
+chmod o-r other_cannomore_read_me.sh
+</pre>
+</div>
+<p>
+这样的记法简洁明了，不易出错。但是在权限模型复杂的时候，需要我们输入
+大量的字符。为了简化录入，chmod还暴露了一个比较低阶的参数接口也就是权限
+标记。
+</p>
+
+<p>
+使用权限标记，可以使用二进制的数字0111标识全部权限开放。每一位1都标识一
+个权限，顺序为rwx从高到低。也就是说0111标识的权限组合是0rwx，这个二进制
+数的十进制值即是7。同时，由于我们需要ugo三组权限组合，所以对一个文件的
+授权操作就可以简化为三个数值，这样授权就变得简化很多。
+</p>
+
+<p>
+比如chmod711授权以后就可以得到以下的权限：- rwx &#x2013;x &#x2013;x。
+</p>
+
+<p>
+这种使用二进制数值标识多种并存状态的做法在Linux内是很常用的。好处就是简
+化操作，不需要复杂的“数据结构”去支持状态的保存。另外在判断某种特定状态
+当前是否存在的时候只需要对状态位进行逻辑与就可以得到结果了。比如说：
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-c">int CAN_BE_READ = 4;
+int CAN_BE_WRITE = 2;
+if( intval &amp; CAN_BE_READ )
+ //do read sth.
+if( intval &amp; CAN_BE_WRITE )
+ //do write sth.
+</pre>
+</div>
+
+<p>
+按规则可以很轻易算出不可执行文件所对应的授权数字标识是666，而全部开放的
+授权数字标识是777。巧合的是在西方文化里，666代表着极度缺陷，是兽名的印
+记，是恶魔的数字。而777则截然相反，它代表完备，也即上帝。摇滚乐队的金属
+礼手势就是源自这个传说，向金属摇滚表示礼赞的“金属之角”手势从三个角度都
+看都代表数字6。
+</p>
+
+<p>
+这是巧合还是有意为之呢。
+</p>
+
+<p>
+<a href="http:www.666mark-of-the-beast.net/">这里</a> 有讲解了为什么兽名的印记是666，感兴趣可以读读。里面还提到芯片植入、
+条码技术的邪恶象征等等。呵呵，呵呵。
 </p>
 </div>
 <div id="postamble" class="status">
-<p class="date">Created: 2014-05-08 Thu 14:40</p>
-<p class="creator"><a href="http://www.gnu.org/software/emacs/">Emacs</a> 24.3.1 (<a href="http://orgmode.org">Org</a> mode 8.2.5h)</p>
+<p class="date">Created: 2014-05-11 Sun 03:09</p>
+<p class="creator"><a href="http://www.gnu.org/software/emacs/">Emacs</a> 24.2.1 (<a href="http://orgmode.org">Org</a> mode 8.2.5h)</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>

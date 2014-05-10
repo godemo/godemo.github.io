@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
 <head>
 <title>在Java6 (android) 下仿造实现.NET TPL(wp)</title>
-<!-- 2014-05-08 Thu 11:45 -->
+<!-- 2014-05-11 Sun 03:09 -->
 <meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta  name="generator" content="Org-mode" />
 <style type="text/css">
@@ -162,11 +162,13 @@ TPL（Task Parallel Library）是微软.NET Framework中对并发编程支持的
 <p>
 C#栗子：
 </p>
+
 <div class="org-src-container">
 
 <pre class="src src-java">for (int i = 0; i &lt; 100; i++) { a[i] = a[i]*a[i]; } //一个CPU计算100次
 </pre>
 </div>
+
 <p>
 可以按以下方式改造：
 </p>
@@ -307,8 +309,8 @@ WaitAny 方法，协调多个为了响应 Begin_ 方法而执行的操作。
 </p>
 </div>
 <div id="postamble" class="status">
-<p class="date">Created: 2014-05-08 Thu 11:45</p>
-<p class="creator"><a href="http://www.gnu.org/software/emacs/">Emacs</a> 24.3.1 (<a href="http://orgmode.org">Org</a> mode 8.2.5h)</p>
+<p class="date">Created: 2014-05-11 Sun 03:09</p>
+<p class="creator"><a href="http://www.gnu.org/software/emacs/">Emacs</a> 24.2.1 (<a href="http://orgmode.org">Org</a> mode 8.2.5h)</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
