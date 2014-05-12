@@ -1,3 +1,3 @@
 godemo.github.io
 ================
-weblog static filese
+weblog static files
