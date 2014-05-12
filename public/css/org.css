@@ -464,3 +464,21 @@ pre {
     font-family:monaco, courier, monospace;
     line-height: 200%;
 }
+
+
+#page, #disqus_thread {
+-webkit-hyphens: auto;
+-moz-hyphens: auto;
+hyphens: auto;
+box-shadow: none;
+-webkit-box-shadow: none;
+-moz-box-shadow: 2px 2px 8px #aaa;
+}
+#page, #disqus_thread {
+background: white;
+/* background-image: url(grid.png); */
+padding: 3em 3em 1.5em 3em;
+border: 0px;
+border-top: 1px solid #ccc;
+}
+

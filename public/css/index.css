@@ -19,3 +19,19 @@ ul li {
     float:left; 
     padding:0px;
 }
+
+#page, #disqus_thread {
+-webkit-hyphens: auto;
+-moz-hyphens: auto;
+hyphens: auto;
+box-shadow: none;
+-webkit-box-shadow: none;
+-moz-box-shadow: none;
+}
+#page, #disqus_thread {
+background: white;
+/* background-image: url(grid.png); */
+padding: 3em 3em 1.5em 3em;
+border: 0;
+border-top: 1px dashed #ccc;
+}
