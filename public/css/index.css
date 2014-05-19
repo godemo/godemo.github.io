@@ -16,7 +16,7 @@ ul li {
 
 .figure{
     width:auto;
-    float:left; 
+    float:none; 
     padding:0px;
 }
 
