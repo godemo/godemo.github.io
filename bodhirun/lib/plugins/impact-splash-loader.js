@@ -69,7 +69,7 @@ ig.ImpactSplashLoader = ig.Loader.extend({
 		ctx.fillStyle = 'rgb(128,128,128)';
 		ctx.textAlign = 'right';
 		ctx.font = '10px Arial';
-		ctx.fillText( 'http://impactjs.com', w - 10, h - 10 );
+		ctx.fillText( 'http://toykit.tk', w - 10, h - 10 );
 		ctx.textAlign = 'left';
 		
 		
