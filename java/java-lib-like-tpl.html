@@ -1,0 +1,332 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>在Java6 (android) 下仿造实现.NET TPL(wp)</title>
+<!-- 2014-05-20 Tue 00:43 -->
+<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta  name="generator" content="Org-mode" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { color: green; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  pre.src-sh:before    { content: 'sh'; }
+  pre.src-bash:before  { content: 'sh'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-R:before     { content: 'R'; }
+  pre.src-perl:before  { content: 'Perl'; }
+  pre.src-java:before  { content: 'Java'; }
+  pre.src-sql:before   { content: 'SQL'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.right  { text-align: center;  }
+  th.left   { text-align: center;   }
+  th.center { text-align: center; }
+  td.right  { text-align: right;  }
+  td.left   { text-align: left;   }
+  td.center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara:nth-child(2) { display: inline; }
+  .footpara { display: block; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  /*]]>*/-->
+</style>
+<link rel="stylesheet" type="text/css" href="/public/css/org.css" />
+<link rel="stylesheet" type="text/css" href="/public/css/index.css" />
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="preamble" class="status">
+
+<div id="header">
+	<h1>
+	<a href="http://blog.toykit.tk">ToyKit.TK</a>
+	<span class="byline"> 靠谱哥の玩具盒 </span>
+</h1>
+<ul class="nav">
+  <li><a class="home" href="http://blog.toykit.tk">Home</a></li>
+  <li><a class="info" href="http://blog.toykit.tk/archives.html">Archives</a></li>
+</ul>
+</div>
+</div>
+<div id="content">
+<h1 class="title">在Java6 (android) 下仿造实现.NET TPL(wp)</h1>
+<p>
+TPL（Task Parallel Library）是微软.NET Framework中对并发编程支持的抽象
+封装库，对于Java程序员来讲直观上可以粗暴理解成java的concurrency或者安卓
+里的AsyncTask换了个姿势。其作用本质上就是更佳的利用多核处理器的计算能力，
+或者说为了不卡。
+</p>
+
+<p>
+C#栗子：
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-java">for (int i = 0; i &lt; 100; i++) { a[i] = a[i]*a[i]; } //一个CPU计算100次
+</pre>
+</div>
+
+<p>
+可以按以下方式改造：
+</p>
+<div class="org-src-container">
+
+<pre class="src src-java">Parallel.For(0, 100, delegate(int i) { a[i] = a[i]*a[i]; });//神器delegate
+</pre>
+</div>
+<p>
+很容易理解：delegate一百遍啊一百遍，并发的关键在于Parallel.For内部实现
+了支持。我们可以用Java实现一下，揣测一下到底是什么样的支持。
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-java">public class TestParalle {
+	public static void main(String[] args) throws InterruptedException {
+		final int[] a = new int[100];
+
+		for (int i = 0; i &lt; a.length; i++) a[i] = i;
+		//填点儿测试数据
+
+		Paralle._for(0, 100, new ParallePow() {
+			@Override
+			public void pow(int i) {
+				a[i] = a[i] * a[i];
+			}
+		});//并发计算乘方，用匿名接口实现模拟其他语言里的匿名函数
+
+		Thread.sleep(3000);// 人为停止3秒，等待所有线程执行完毕
+		for (int i = 0; i &lt; a.length; i++) {
+			System.out.println(a[i]);
+		}//看下结果
+	}
+}
+
+class Paralle {
+	// 处理器核数，用于对任务进行分组
+	static int cpus = Runtime.getRuntime().availableProcessors();
+
+	public static void _for(int start, int times, final ParallePow delegate) {
+		//分组
+		final int groupjobs = times / cpus;
+		for (int j = 0; j &lt; cpus; j++) {
+			final int procmark = j;
+			new Thread() {
+				@Override
+				public void run() {
+					for (int x = groupjobs * procmark ; x &lt; groupjobs
+							* (procmark+1); x++) {
+						delegate.pow(x);
+					}
+				}
+			}.run();//一组一个线程
+		}
+
+	}
+}
+
+interface ParallePow {
+	void pow(int i);//模拟匿名函数
+}
+</pre>
+</div>
+
+<p>
+大概看到了，其实就是利用好多核CPU做好计算的分段。
+</p>
+
+<p>
+需要注意两点：
+</p>
+
+<p>
+1、想要用这么个简单的乘方操作把所有CPU跑满是不现实的。另外的并发的实现
+也不可能是这么简单的逻辑，实际上.NET TPL会自动判定CPU情况去决定多少个任
+务并发计算。这里只是为了说明并发写的一个简单的例子，实现Task也并不需要
+考虑CPU个数。
+</p>
+
+<p>
+2、这种方式是static的，这直接导致非线程安全，也就是说Paralle接口的匿名
+实现需要自行考虑线程安全的问题。比如说你传入的是个读写计算并写入配置文
+件的接口ParalleModConfigFile 这必须自己考虑资源锁。
+</p>
+
+<p>
+Paralle还有很多强大的应用，没有深入调查。不讨论了。
+</p>
+
+<p>
+上面这个机制还有一个问题是，他是基于lexical scope的，也就是说：“并发的
+内容是什么”是在源码编译期就已经写死了的，一旦开始运行就停不掉，也无法知
+道当前运行到了什么程度，要是想加并发任务，就需要加代码。所以上面
+Paralle机制的实现参考价值有限。
+</p>
+
+<p>
+下面我们看一下TPL中更核心更抽象实用的概念：Task
+</p>
+
+<p>
+抄一段Task 的优点以及功能
+</p>
+
+<p>
+在任务启动后，可以随时以任务延续的形式注册回调。
+</p>
+
+<p>
+通过使用 ContinueWhenAll 和 ContinueWhenAny 方法或者 WaitAll 方法或
+WaitAny 方法，协调多个为了响应 Begin_ 方法而执行的操作。
+</p>
+
+<p>
+在同一 Task 对象中封装异步 I/O 绑定和计算绑定操作。
+</p>
+
+<p>
+监视 Task 对象的状态。
+</p>
+
+<p>
+使用 TaskCompletionSource 将操作的状态封送到 Task 对象。
+</p>
+
+
+
+<p>
+所谓Task，任务，我们理解为击鼓传花，则关键特性需要满足：
+</p>
+
+<p>
+1、任务自身的生命周期控制:建立、启动、停止、中断、完成。
+2、任务自身的执行结果，为了任务的延续，任务Task需要返回带结果的任务Task&lt;TResult&gt;。
+3、多个任务如何协作：如何等待某任务，如何接续某任务。
+4、任务自身的线程安全方法，不对其他协作任务产生影响。
+</p>
+
+<div id="disqus_thread"></div>
+  <script type="text/javascript">
+      /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+      var disqus_shortname = 'toykit'; // required: replace example with your forum shortname
+
+      /* * * DON'T EDIT BELOW THIS LINE * * */
+      (function() {
+          var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+          dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+          (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+<div id="postamble" class="status">
+<p class="date">Created: 2014-05-20 Tue 00:43</p>
+<p class="creator"><a href="http://www.gnu.org/software/emacs/">Emacs</a> 24.2.1 (<a href="http://orgmode.org">Org</a> mode 8.2.5h)</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>
